@@ -56,7 +56,9 @@ const TaskTracker = () => {
                                 {task.text}
                             </span>
                         </div>
-                        <button onClick={() => {deleteTask(index)}}>delete</button>
+                        <button onClick={() => {deleteTask(index)}}>
+                        <i className="ri-delete-bin-fill"></i>
+                        </button>
                     </li>))}
                     
                 </ul>
