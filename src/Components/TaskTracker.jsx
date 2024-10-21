@@ -6,20 +6,23 @@ const TaskTracker = () => {
 
     // Load tasks from localStorage on component mount
     useEffect(() => {
-        if(tasks) { // checking if there are tasks
-            const storedTasks = localStorage.getItem("tasks"); // storing the tasks
+        const storedTasks = localStorage.getItem("tasks"); // storing the tasks
+        if(storedTasks) { // checking if there are tasks
             setTasks(JSON.parse(storedTasks));
             console.log(tasks)
+        }
+        else{
+            setTasks([]);   //  Return to empty array if no tasks in localStorage
         }
     }, []);
 
     // Add a new task to the list
     const addTask = (e) => {
-        e.preventDefault();
+        e.preventDefault(); //  Preventing default load
         const newTask = task.toLowerCase().trim(); // Convert to lover case
         if (newTask) {
             const newTasks = [{ text: task, completed: false }, ...tasks];
-            setTasks(newTasks); // Update state with the new tasks
+            setTasks(newTasks); // Update tasks array with the new task
             localStorage.setItem("tasks", JSON.stringify(newTasks)); // Save tasks to localStorage
             setTask(""); // Clear input field after each task
         }
@@ -29,14 +32,14 @@ const TaskTracker = () => {
     const toggleComplete = (index) => {
         const newTasks = [...tasks];
         newTasks[index].completed = !newTasks[index].completed; //  Switching completed!
-        setTasks(newTasks); // Update state
+        setTasks(newTasks); // Update tasks
         localStorage.setItem("tasks", JSON.stringify(newTasks)); // Save updated tasks to localStorage
     };
 
     // Delete a task
     const deleteTask = (index) => {
         const newTasks = tasks.filter((_, i) => i !== index);
-        setTasks(newTasks); // Update state
+        setTasks(newTasks); // Update tasks
         localStorage.setItem("tasks", JSON.stringify(newTasks)); // Save updated tasks to localStorage
     };
 
