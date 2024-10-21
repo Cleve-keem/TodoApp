@@ -6,28 +6,29 @@ const TaskTracker = () => {
 
     // Load tasks from localStorage on component mount
     useEffect(() => {
-        const storedTasks = localStorage.getItem("tasks");
-        if (storedTasks) {
+        if(tasks) { // checking if there are tasks
+            const storedTasks = localStorage.getItem("tasks"); // storing the tasks
             setTasks(JSON.parse(storedTasks));
+            console.log(tasks)
         }
     }, []);
 
     // Add a new task to the list
     const addTask = (e) => {
         e.preventDefault();
-        const newTask = task.toLowerCase().trim();
+        const newTask = task.toLowerCase().trim(); // Convert to lover case
         if (newTask) {
             const newTasks = [{ text: task, completed: false }, ...tasks];
             setTasks(newTasks); // Update state with the new tasks
             localStorage.setItem("tasks", JSON.stringify(newTasks)); // Save tasks to localStorage
-            setTask(""); // Clear input field
+            setTask(""); // Clear input field after each task
         }
     };
 
     // Toggle task completion
     const toggleComplete = (index) => {
         const newTasks = [...tasks];
-        newTasks[index].completed = !newTasks[index].completed;
+        newTasks[index].completed = !newTasks[index].completed; //  Switching completed!
         setTasks(newTasks); // Update state
         localStorage.setItem("tasks", JSON.stringify(newTasks)); // Save updated tasks to localStorage
     };
